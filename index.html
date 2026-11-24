@@ -1,0 +1,375 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Meu Portfólio - Desenvolvimento de Sistemas</title>
+    <link rel="stylesheet" href="style.css">
+    <style>
+        /* Ajustes para fundo amarelo mostarda e detalhes combinando */
+        body {
+            background-color: #f39c12 !important; /* Amarelo mostarda vibrante */
+            color: #2d3748 !important;
+        }
+
+        #canvas-fundo {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            z-index: -1;
+            background-color: #f39c12;
+            pointer-events: none;
+        }
+
+        header {
+            background: rgba(255, 243, 224, 0.95) !important;
+            border-bottom: 1px solid rgba(192, 86, 33, 0.2);
+        }
+
+        .logo h1 {
+            color: #c05621 !important;
+        }
+
+        nav a {
+            color: #4a5568 !important;
+        }
+
+        nav a:hover {
+            color: #c05621 !important;
+        }
+
+        .hero {
+            background: linear-gradient(135deg, rgba(255, 243, 224, 0.9), rgba(246, 173, 85, 0.5)) !important;
+        }
+
+        .hero-title .destaque {
+            color: #9c4221 !important;
+        }
+
+        .sobre, .disciplinas, .disciplina {
+            background: #fffaf0 !important;
+            color: #2d3748 !important;
+            border-top: 1px solid rgba(192, 86, 33, 0.15) !important;
+        }
+
+        .card-disciplina, .semana, .card-perfil {
+            background: #ffffff !important;
+            border: 1px solid #fbd38d !important;
+            color: #2d3748 !important;
+            box-shadow: 0 8px 25px rgba(192, 86, 33, 0.08) !important;
+        }
+
+        .card-disciplina h3, .cabecalho-disciplina h2, .semana h3, .sobre h2, .titulo-secao h2 {
+            color: #c05621 !important;
+        }
+
+        .hero-badge, .titulo-secao .tag, .sobre-tags span {
+            background: rgba(192, 86, 33, 0.1) !important;
+            color: #c05621 !important;
+            border: 1px solid rgba(192, 86, 33, 0.2) !important;
+        }
+
+        .btn-primary, .btn-adicionar-anexo, .btn-salvar-semana {
+            background: linear-gradient(135deg, #c05621, #9c4221) !important;
+            color: #ffffff !important;
+        }
+
+        .btn-outline {
+            background: transparent !important;
+            color: #c05621 !important;
+            border: 2px solid #c05621 !important;
+        }
+
+        /* Campos de texto, textareas e inputs de arquivo com fundo BRANCO limpo */
+        .campo input[type="text"], 
+        .campo textarea, 
+        .form-novo-anexo input[type="text"],
+        .form-novo-anexo input[type="file"] {
+            background: #ffffff !important;
+            color: #2d3748 !important;
+            border: 1px solid #fbd38d !important;
+        }
+
+        .campo input[type="text"]::placeholder, 
+        .campo textarea::placeholder,
+        .form-novo-anexo input[type="text"]::placeholder {
+            color: #a0aec0 !important;
+        }
+
+        /* Botão "Escolher arquivos" personalizado */
+        input[type="file"]::file-selector-button {
+            background: #c05621;
+            color: white;
+            border: none;
+            padding: 6px 12px;
+            border-radius: 6px;
+            cursor: pointer;
+            font-weight: 600;
+            margin-right: 10px;
+            transition: 0.2s;
+        }
+
+        input[type="file"]::file-selector-button:hover {
+            background: #9c4221;
+        }
+
+        .anexo-item {
+            background: #fffaf0 !important;
+            border: 1px solid #fbd38d !important;
+        }
+
+        .anexo-item a {
+            color: #c05621 !important;
+        }
+
+        footer {
+            background: #1a202c !important;
+            border-top: 1px solid rgba(246, 173, 85, 0.2);
+        }
+    </style>
+</head>
+
+<body class="modo-visitante">
+
+    <!-- CANVAS DO FUNDO INTERATIVO (BOLINHAS BRANCAS/SUAVES) -->
+    <canvas id="canvas-fundo"></canvas>
+
+    <!-- CABEÇALHO -->
+    <header>
+        <div class="logo">
+            <span class="logo-icon">💻</span>
+            <div>
+                <h1>Meu Portfólio</h1>
+                <p>Desenvolvimento de Sistemas</p>
+            </div>
+        </div>
+
+        <div class="header-right">
+            <nav id="menu">
+                <a href="#inicio">Início</a>
+                <a href="#sobre">Sobre</a>
+                <a href="#disciplinas">Disciplinas</a>
+            </nav>
+            <button id="btnAdm" class="btn-adm" onclick="alternarAdmin()">🔒 ADM</button>
+            <button class="menu-btn" onclick="abrirMenu()">☰</button>
+        </div>
+    </header>
+
+    <!-- INÍCIO -->
+    <section id="inicio" class="hero">
+        <div class="hero-content centralizado" style="text-align: center; max-width: 800px; margin: 0 auto; padding: 40px 20px;">
+            <span class="hero-badge">PORTFÓLIO DIGITAL — 4º BIMESTRE</span>
+            <h2 class="hero-title" style="font-size: 42px; margin-top: 15px;">
+                Olá! Eu sou <span class="destaque">Emilly Amorim</span>
+            </h2>
+            <p class="hero-subtitle" style="color: #4a5568; margin-top: 15px; font-size: 16px;">
+                Este é meu portfólio digital para registrar as atividades, códigos e projetos desenvolvidos ao longo do curso técnico em Desenvolvimento de Sistemas (Semanas 22 a 29).
+            </p>
+            <div class="hero-buttons" style="margin-top: 25px; display: flex; gap: 15px; justify-content: center;">
+                <a href="#disciplinas" class="btn btn-primary">Ver disciplinas</a>
+                <a href="#sobre" class="btn btn-outline">Sobre mim</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- SOBRE -->
+    <section id="sobre" class="sobre" style="padding: 60px 20px; text-align: center;">
+        <div class="container" style="max-width: 900px; margin: 0 auto;">
+            <h2>Sobre o portfólio</h2>
+            <p style="color: #4a5568; margin-top: 15px; line-height: 1.7;">
+                Sou aluna do Ensino Médio cursando o curso técnico de <strong>Desenvolvimento de Sistemas</strong>. 
+                Este portfólio reúne todas as minhas atividades do 4º bimestre (Semanas 22 a 29), permitindo registrar conteúdos, anexar arquivos de qualquer tamanho e converter textos diretamente para documentos Word com fonte Arial.
+            </p>
+            <div class="sobre-tags" style="margin-top: 25px; display: flex; gap: 10px; justify-content: center; flex-wrap: wrap;">
+                <span>🤖 Inteligência Artificial</span>
+                <span>🗄️ Banco de Dados</span>
+                <span>⚙️ Back-End</span>
+                <span>🎨 Front-End</span>
+                <span>📱 Mobile</span>
+                <span>🚀 Projeto Multidisciplinar</span>
+                <span>🔀 Versionamento</span>
+            </div>
+        </div>
+    </section>
+
+    <!-- DISCIPLINAS -->
+    <section id="disciplinas" class="disciplinas" style="padding: 60px 20px;">
+        <div class="container" style="max-width: 1100px; margin: 0 auto;">
+            <div class="titulo-secao" style="text-align: center; margin-bottom: 40px;">
+                <span class="tag">4º BIMESTRE</span>
+                <h2>Minhas disciplinas</h2>
+                <p style="color: #4a5568;">Escolha uma disciplina para visualizar e acompanhar as semanas 22 até 29.</p>
+            </div>
+
+            <div class="cards-disciplinas">
+                <a href="#back-end" class="card-disciplina">
+                    <span>⚙️</span>
+                    <h3>Back-End</h3>
+                    <p>Servidor e lógica da aplicação</p>
+                </a>
+                <a href="#front-end" class="card-disciplina">
+                    <span>🎨</span>
+                    <h3>Front-End</h3>
+                    <p>Interfaces e experiências</p>
+                </a>
+                <a href="#versionamento" class="card-disciplina">
+                    <span>🔀</span>
+                    <h3>Versionamento</h3>
+                    <p>Controle e organização do código</p>
+                </a>
+                <a href="#mobile" class="card-disciplina">
+                    <span>📱</span>
+                    <h3>Mobile</h3>
+                    <p>Desenvolvimento para celulares</p>
+                </a>
+                <a href="#banco" class="card-disciplina">
+                    <span>🗄️</span>
+                    <h3>Banco de Dados</h3>
+                    <p>Dados e consultas</p>
+                </a>
+                <a href="#ia" class="card-disciplina">
+                    <span>🤖</span>
+                    <h3>Inteligência Artificial</h3>
+                    <p>IA e suas aplicações</p>
+                </a>
+                <a href="#projeto" class="card-disciplina">
+                    <span>🚀</span>
+                    <h3>Projeto Multidisciplinar</h3>
+                    <p>Projeto e desenvolvimento</p>
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- ÁREA ONDE AS DISCIPLINAS E SEMANAS SERÃO CRIADAS PELO JS -->
+    <main id="conteudoDisciplinas"></main>
+
+    <!-- CONTROLES -->
+    <section class="controles" id="secaoControles" style="display: none; padding: 40px 20px; text-align: center; background: #fff3eb;">
+        <div class="container">
+            <h2 style="color: #c05621;">💾 Controle do portfólio (Modo ADM)</h2>
+            <p style="color: #4a5568;">Faça a gestão dos dados salvos no seu navegador.</p>
+            <div class="botoes-controle" style="margin-top: 15px; display: flex; gap: 15px; justify-content: center;">
+                <button onclick="salvarTudo()" class="btn btn-salvar">💾 Salvar tudo</button>
+                <button onclick="limparTudo()" class="btn btn-limpar">🗑️ Limpar tudo</button>
+            </div>
+        </div>
+    </section>
+
+    <!-- RODAPÉ -->
+    <footer style="padding: 30px 40px; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 15px;">
+        <div>
+            <h3 style="color: #fbd38d;">Meu Portfólio</h3>
+            <p style="color: #cbd5e0; font-size: 13px;">Desenvolvimento de Sistemas | 4º Bimestre</p>
+        </div>
+        <p style="color: #cbd5e0; font-size: 13px;">Desenvolvido por Emilly Amorim 💜</p>
+    </footer>
+
+    <!-- BOTÃO VOLTAR AO TOPO -->
+    <button id="btnTopo" onclick="voltarTopo()">↑</button>
+
+    <!-- SCRIPT DO FUNDO INTERATIVO (AMARELO MOSTARDA COM PARTÍCULAS) -->
+    <script>
+        const canvas = document.getElementById('canvas-fundo');
+        const ctx = canvas.getContext('2d');
+
+        let largura = canvas.width = window.innerWidth;
+        let altura = canvas.height = window.innerHeight;
+
+        window.addEventListener('resize', () => {
+            largura = canvas.width = window.innerWidth;
+            altura = canvas.height = window.innerHeight;
+        });
+
+        let mouse = { x: null, y: null, raio: 150 };
+
+        window.addEventListener('mousemove', (event) => {
+            mouse.x = event.clientX;
+            mouse.y = event.clientY;
+        });
+
+        window.addEventListener('mouseout', () => {
+            mouse.x = null;
+            mouse.y = null;
+        });
+
+        class Particula {
+            constructor() {
+                this.x = Math.random() * largura;
+                this.y = Math.random() * altura;
+                this.vx = (Math.random() - 0.5) * 1.0;
+                this.vy = (Math.random() - 0.5) * 1.0;
+                this.raio = Math.random() * 2.5 + 1;
+            }
+
+            atualizar() {
+                this.x += this.vx;
+                this.y += this.vy;
+                if (this.x < 0 || this.x > largura) this.vx *= -1;
+                if (this.y < 0 || this.y > altura) this.vy *= -1;
+            }
+
+            desenhar() {
+                ctx.beginPath();
+                ctx.arc(this.x, this.y, this.raio, 0, Math.PI * 2);
+                ctx.fillStyle = 'rgba(255, 255, 255, 0.65)';
+                ctx.fill();
+            }
+        }
+
+        const quantidade = Math.floor((largura * altura) / 10000);
+        const particulas = [];
+        for (let i = 0; i < quantidade; i++) {
+            particulas.push(new Particula());
+        }
+
+        function animar() {
+            ctx.clearRect(0, 0, largura, altura);
+
+            for (let i = 0; i < particulas.length; i++) {
+                particulas[i].atualizar();
+                particulas[i].desenhar();
+
+                for (let j = i + 1; j < particulas.length; j++) {
+                    const dx = particulas[i].x - particulas[j].x;
+                    const dy = particulas[i].y - particulas[j].y;
+                    const distancia = Math.sqrt(dx * dx + dy * dy);
+
+                    if (distancia < 100) {
+                        ctx.beginPath();
+                        ctx.moveTo(particulas[i].x, particulas[i].y);
+                        ctx.lineTo(particulas[j].x, particulas[j].y);
+                        ctx.strokeStyle = `rgba(255, 255, 255, ${0.2 * (1 - distancia / 100)})`;
+                        ctx.lineWidth = 0.5;
+                        ctx.stroke();
+                    }
+                }
+
+                if (mouse.x !== null && mouse.y !== null) {
+                    const dxM = particulas[i].x - mouse.x;
+                    const dyM = particulas[i].y - mouse.y;
+                    const distanciaM = Math.sqrt(dxM * dxM + dyM * dyM);
+
+                    if (distanciaM < mouse.raio) {
+                        ctx.beginPath();
+                        ctx.moveTo(particulas[i].x, particulas[i].y);
+                        ctx.lineTo(mouse.x, mouse.y);
+                        ctx.strokeStyle = `rgba(192, 86, 33, ${0.3 * (1 - distanciaM / mouse.raio)})`;
+                        ctx.lineWidth = 0.7;
+                        ctx.stroke();
+                    }
+                }
+            }
+            requestAnimationFrame(animar);
+        }
+
+        animar();
+    </script>
+
+    <script src="script.js"></script>
+</body>
+
+</html>
